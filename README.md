@@ -20,6 +20,12 @@ There are three top-level folders:
 ## Setup Backend
 Install dependencies in the top-level directory with `npm install`.
 
+1. Start Local Node of Hardhat `npx hardhat node`
+2. Create `.env` file from example file
+3. Copy private key from console of local node or use from Testnet
+4. Run deployment script `npx hardhat run ./scripts/deploy.js`
+
+
 
 ## Setup Frontend
 `cd` into the `/app` directory and run `npm install`.
