@@ -1,0 +1,11 @@
+{
+  "name": "iview-nft-fe",
+  "version": "1.0.0",
+  "description": "frontend code for iview-nft project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "iView Labs Pvt. Ltd.",
+  "license": "ISC"
+}
