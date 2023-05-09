@@ -1,0 +1,14 @@
+.landing-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+}
+
+.landing-page-logo {
+  /* position: relative;
+  top: 20%; */
+  
+}
+.landing-page-desc {
+}
