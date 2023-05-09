@@ -3,6 +3,7 @@ import "./App.css";
 import LandingPage from "./Pages/Landing/LandingPage";
 import Navbar from "./Components/Navbar/Navbar";
 import MainPage from "./Pages/Main/MainPage";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path={"/"} element={<LandingPage />} />
         <Route path={"/Main"} element={<MainPage />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

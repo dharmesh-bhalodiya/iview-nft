@@ -1,12 +1,40 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../../Assets/Logo22.png";
 import "./LandingPage.css";
 import { Box, Button, Typography } from "@mui/material";
-import Web3 from "web3";
 import { useNavigate } from "react-router-dom";
+import { ethers } from "ethers";
 
 function LandingPage() {
   const history = useNavigate();
+  const [walletAddress, setWalletAddress] = useState("");
+
+  const requestAccount = async () => {
+    if (window.ethereum) {
+      console.log("detected");
+      try {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+        setWalletAddress(accounts[0]);
+        console.log(accounts);
+        history("/Main");
+      } catch (error) {
+        console.log("error connecting....");
+      }
+    } else {
+      alert("Meta mask not detected");
+    }
+  };
+
+  const connectWallet = async () => {
+    if (typeof window.ethereum !== "undefined") {
+      await requestAccount();
+
+      // const provider = new ethers.getDefaultProvider(window.ethereum);
+      // console.log(provider);
+    }
+  };
 
   return (
     <div className="landing-page">
@@ -34,23 +62,11 @@ function LandingPage() {
             variant="contained"
             href="#contained-buttons"
             className="btn-bg"
-            onClick={async () => {
-              if (window.ethereum) {
-                const web3 = new Web3(window.ethereum);
-                try {
-                  // Request account access if needed
-                  await window.ethereum.enable();
-                  // Acccounts now exposed
-                  history("/Main");
-                  return web3;
-                } catch (error) {
-                  console.error(error);
-                }
-              }
-            }}
+            onClick={connectWallet}
           >
             Connect Wallet
           </Button>
+          <h4>{walletAddress}</h4>
         </Box>
       </div>
     </div>
