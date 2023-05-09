@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 contract iViewCoin is ERC20, Ownable, ERC20Burnable {
 
     uint  _initial_supply = 1000 * (10**18);
-    uint _price_eth = 1;
+    uint _price_eth = 2;
 
 
     constructor() ERC20("iViewCoin", "IVC") {
@@ -22,6 +22,10 @@ contract iViewCoin is ERC20, Ownable, ERC20Burnable {
     function updatePrice(uint newPrice) public onlyOwner {
         require(newPrice > 0, "New price of this coin must be grater than 0.");
         _price_eth = newPrice;
+    }
+
+    function getPrice() public view returns(uint){
+        return _price_eth;
     }
 
     function buyCoin(uint amount) public payable {
