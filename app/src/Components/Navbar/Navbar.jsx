@@ -10,17 +10,20 @@ import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import logo from "../../Assets/Logo22.png";
+import logo from "../../Assets/logo.png";
 import { useState } from "react";
 import "./Navbar.css";
 import { useNavigate } from "react-router-dom";
-
-const settings = ["Disconnect"];
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const history = useNavigate();
+
+  const address = localStorage.getItem("address");
+  const formattedAdd = address?.substr(0, 4) + "...." + address?.substr(-4);
+  console.log(address);
+  const settings = [`${formattedAdd}`, "Disconnect"];
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -37,6 +40,18 @@ function Navbar() {
     setAnchorElUser(null);
   };
 
+  async function handleDisconnectClick() {
+    if (window.ethereum) {
+      console.log("detected");
+      try {
+        window.ethereum.disconnect();
+      } catch (error) {
+        console.log("error connecting....");
+      }
+    } else {
+      alert("Meta mask not detected");
+    }
+  }
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -44,7 +59,7 @@ function Navbar() {
           <img
             src={logo}
             alt=""
-            style={{ height: "35px", cursor: "pointer" }}
+            style={{ height: "70px", cursor: "pointer" }}
             onClick={handleClick}
           />
 
@@ -83,9 +98,21 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              {settings.map((setting, index) => (
+                <MenuItem key={index} onClick={handleCloseUserMenu}>
+                  {index === 0 ? (
+                    <>
+                      <i className="fa fa-wallet"></i>&nbsp; &nbsp;
+                      <Typography textAlign="center">{setting}</Typography>
+                    </>
+                  ) : (
+                    <Typography
+                      textAlign="center"
+                      onClick={handleDisconnectClick}
+                    >
+                      {setting}
+                    </Typography>
+                  )}
                 </MenuItem>
               ))}
             </Menu>
