@@ -1,30 +1,31 @@
-import React, { useState } from "react";
 import logo from "../../Assets/logo.png";
 import "./LandingPage.css";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
+import { useDispatch } from "react-redux";
+import { walletAction } from "../../Components/Reducer/walletAction";
 
 function LandingPage() {
+  const dispatch = useDispatch();
   const history = useNavigate();
-  const [walletAddress, setWalletAddress] = useState("");
 
   const requestAccount = async () => {
-    if (window.ethereum) {
+    if (window.ethereum && window.ethereum.isConnected()) {
       console.log("detected");
       try {
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
-        setWalletAddress(accounts[0]);
+        dispatch(walletAction(accounts[0]));
         console.log(accounts[0]);
-        // localStorage.setItem("address", accounts[0]);
-        history("/Main");
+
+        history("/Explore");
       } catch (error) {
         console.log("error connecting....");
       }
     } else {
-      alert("Meta mask not detected");
+      console.log("Meta mask not detected");
     }
   };
 
@@ -63,11 +64,10 @@ function LandingPage() {
               variant="contained"
               href="#contained-buttons"
               className="btn-bg"
-              onClick={connectWallet}
+              onClick={() => connectWallet()}
             >
               Connect Wallet
             </Button>
-            <h4>{walletAddress}</h4>
           </Box>
         </Grid>
         <Grid item xs={6}>
