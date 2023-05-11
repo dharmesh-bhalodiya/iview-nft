@@ -8,6 +8,9 @@ import { configureStore } from "@reduxjs/toolkit";
 import { walletReducer } from "./Components/Reducer/walletReducer";
 import Explore from "./Pages/Explore/Explore";
 import OwnedNFT from "./Pages/MyNFT/OwnedNFT";
+import Circle from "./Components/NFT/Circle";
+import Background from "./Components/Background/Background";
+import "./fonts/Archive.otf";
 
 const store = configureStore({
   reducer: {
@@ -23,6 +26,7 @@ function App() {
         <Routes>
           <Route path={"/Explore"} element={<Explore />} />
           <Route path={"/Ownednft"} element={<OwnedNFT />} />
+          <Route path={"/circle"} element={<Circle />} />
           <Route path={"/"} element={<LandingPage />} />
         </Routes>
       </Provider>

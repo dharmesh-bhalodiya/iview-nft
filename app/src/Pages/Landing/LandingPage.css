@@ -1,6 +1,16 @@
 .landing-page {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 90vh;
+}
+/* #text::first-letter {
+  text-transform: lowercase;
+} */
+
+.landing-page-logo {
+  height: 90vh;
+  width: 90vw;
+  /* margin-top: -15%; */
 }

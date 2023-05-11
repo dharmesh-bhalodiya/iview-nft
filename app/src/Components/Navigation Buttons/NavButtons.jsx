@@ -25,7 +25,7 @@ export default function NavButtons() {
           alignItems: "center",
           width: "fit-content",
           borderRadius: 1,
-          bgcolor: "background.paper",
+          // bgcolor: "background.paper",
           color: "text.secondary",
           "& svg": {
             m: 1.5,
@@ -38,7 +38,7 @@ export default function NavButtons() {
         <Button
           variant="outlined"
           href="#contained-buttons"
-          color="error"
+          // color="error"
           onClick={explore}
         >
           Explore
@@ -47,7 +47,7 @@ export default function NavButtons() {
         <Button
           variant="outlined"
           href="#contained-buttons"
-          color="error"
+          // color="error"
           onClick={ownedNft}
         >
           Owned NFT

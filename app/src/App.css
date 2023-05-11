@@ -1,8 +1,15 @@
+/* @import url("https://fonts.cdnfonts.com/css/archive"); */
+@font-face {
+  font-family: "Archive";
+  src: url("./fonts/Archive.otf") format("opentype");
+  /* text-transform: none !important; */
+}
+
 html,
 body {
-  background-color: rgb(253, 253, 253);
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  /* background-color: rgb(253, 253, 253); */
+  /* font-family: "Archive" !important; */
+  color: #d2d3d4;
 }
 h1 {
   margin-bottom: 1rem;
