@@ -91,8 +91,11 @@ function Explore() {
     <>
       <Background />
       <Box sx={{ minHeight: "100vh" }}>
-        <Typography variant="h3" sx={{ margin: "1rem", textAlign: "center" }}>
-          Welcome to iViewART.
+        <Typography
+          variant="h3"
+          sx={{ margin: "1rem", textAlign: "center", fontFamily: "Archive" }}
+        >
+          Welcome to infinity trove
         </Typography>
         <NavButtons />
         <NFTCard nfts={nfts} />

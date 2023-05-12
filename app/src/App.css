@@ -10,6 +10,7 @@ body {
   /* background-color: rgb(253, 253, 253); */
   /* font-family: "Archive" !important; */
   color: #d2d3d4;
+  overflow-x: hidden !important;
 }
 h1 {
   margin-bottom: 1rem;
@@ -37,8 +38,8 @@ a {
   background: #404040;
 }
 
-.btn-bg {
-  background: #bb2428 !important;
+.btn {
+  background: #757677 !important;
 }
 
 .App {

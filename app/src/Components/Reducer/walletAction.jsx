@@ -4,3 +4,10 @@ export function walletAction(walletAddress) {
     payload: walletAddress,
   };
 }
+
+export function nftInfo(nftDetail) {
+  return {
+    type: "NFTinfo",
+    payload: nftDetail,
+  };
+}

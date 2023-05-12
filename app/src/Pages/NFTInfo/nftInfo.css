@@ -1,0 +1,20 @@
+.nft-info {
+  min-height: 90vh;
+}
+
+.nft-img {
+  height: 50%;
+  width: 50%;
+}
+
+.left {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+
+.right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

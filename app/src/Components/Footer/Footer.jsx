@@ -5,7 +5,12 @@ function Footer() {
   return (
     <Typography
       variant="h6"
-      sx={{ margin: "1rem", textAlign: "center", color: "white" }}
+      sx={{
+        marginTop: "5rem",
+        marginBottom: "2rem",
+        textAlign: "center",
+        color: "white",
+      }}
     >
       copyrights@iView Labs Pvt. Ltd. 2023
     </Typography>

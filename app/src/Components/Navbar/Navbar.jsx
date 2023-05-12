@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import logo from "../../Assets/logo.png";
+import logo from "../../Assets/navbar-logo.png";
 import "./Navbar.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";

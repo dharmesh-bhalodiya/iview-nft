@@ -1,6 +1,9 @@
 import React from "react";
 import styles from "../NFT/NftGallery.module.css";
 import { useMotionValue, useTransform, motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { nftInfo } from "../../Components/Reducer/walletAction";
 
 export default function NFTGallery({ nfts }) {
   return (
@@ -24,16 +27,26 @@ export default function NFTGallery({ nfts }) {
 function NftCard({ nft }) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const rotateX = useTransform(y, [-100, 100], [30, -30]);
-  const rotateY = useTransform(x, [100, -100], [-30, 30]);
+  const rotateX = useTransform(y, [-100, 500], [30, -30]);
+  const rotateY = useTransform(x, [100, -500], [-30, 30]);
+  const dispatch = useDispatch();
+  const history = useNavigate();
+
+  const handleNftInfo = () => {
+    dispatch(nftInfo(nft));
+    history("/nftInfo");
+  };
+
   return (
     <motion.div
       style={{ x, y, rotateX, rotateY, z: 100 }}
+      whileHover={{ scale: 1.1 }}
       drag
       dragElastic={0.18}
       dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
       whileTap={{ cursor: "grabbing" }}
       className={styles.card_container}
+      onClick={handleNftInfo}
     >
       <div className={styles.image_container}>
         {nft.format === "mp4" ? (
