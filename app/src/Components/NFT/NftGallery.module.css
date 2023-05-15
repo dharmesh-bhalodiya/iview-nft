@@ -160,13 +160,14 @@
 }
 
 .card_container {
-  background-color: #fff;
+  background: rgba(255, 255, 255, 0.2);
   width: 100%;
   max-width: 288px;
   max-height: 436px;
   border-radius: 12px;
   padding: 8px;
   border: 1px solid #cfd9f0;
+  cursor: pointer;
 }
 
 .image_container {
@@ -239,6 +240,10 @@
   text-overflow: ellipsis;
 }
 
+.etherium_logo {
+  mix-blend-mode: plus-lighter;
+}
+
 .description_container {
   margin-top: 0.5em;
   display: -webkit-box;
@@ -248,7 +253,7 @@
   text-overflow: ellipsis;
   width: 90%;
   font-size: 14px;
-  color: #4e4e4e;
+  color: #fff;
 }
 
 @media screen and (max-width: 560px) {

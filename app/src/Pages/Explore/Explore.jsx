@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { ethers } from "ethers";
 import NFTCard from "../../Components/NFT/NFTGallery";
 import NavButtons from "../../Components/Navigation Buttons/NavButtons";
+import Background from "../../Components/Background/Background";
 
 function Explore() {
   const nfts = [
@@ -87,13 +88,19 @@ function Explore() {
     }
   }, []);
   return (
-    <Box sx={{ minHeight: "100vh" }}>
-      <Typography variant="h3" sx={{ margin: "1rem", textAlign: "center" }}>
-        Welcome to iViewART.
-      </Typography>
-      <NavButtons />
-      <NFTCard nfts={nfts} />
-    </Box>
+    <>
+      <Background />
+      <Box sx={{ minHeight: "100vh" }}>
+        <Typography
+          variant="h3"
+          sx={{ margin: "1rem", textAlign: "center", fontFamily: "Archive" }}
+        >
+          Welcome to infinity trove
+        </Typography>
+        <NavButtons />
+        <NFTCard nfts={nfts} />
+      </Box>
+    </>
   );
 }
 
