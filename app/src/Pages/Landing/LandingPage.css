@@ -3,18 +3,42 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 90vh;
+  /* min-height: 90vh; */
 }
 #text {
   font-size: 1.5rem;
-  transform: translateX(600px);
+  transform: translateX(900px);
 }
 
 .landing-page-logo {
-  height: 90vh;
+  height: 70vh;
   width: 90vw;
   animation: logorotation 650ms;
-  /* margin-top: -15%; */
+  margin-top: 3rem;
+  margin-bottom: 0rem;
+}
+
+.landingpagelogo {
+  height: 70px;
+  display: block;
+  margin: auto;
+  margin-top: 8em;
+  margin-bottom: -9rem;
+}
+
+.left-text {
+  width: 100%;
+  margin-left: 14rem;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.right-text {
+  text-align: center;
+  margin-left: 15rem;
+  width: 100%;
+  font-size: 30px;
+  margin-top: 50px;
 }
 
 .glitch {
@@ -29,7 +53,17 @@
   transform: translateX(-600px);
 }
 .landingbtn {
-  transform: translateX(600px);
+  /* transform: translateX(600px); */
+  margin-top: -50px !important;
+  padding: 12px 30px !important;
+  font-size: 18px !important;
+  display: block !important;
+  border: 2px solid #d3d4d5 !important;
+}
+.landingbtn:hover {
+  background-color: transparent !important;
+  border: 2px solid #d3d4d5 !important;
+  color: #d3d4d5 !important;
 }
 
 .glitch span {
@@ -204,6 +238,7 @@
     font-size: 1.2rem !important;
     font-weight: 700;
     padding-left: 0 !important;
+    text-align: left;
   }
   .left {
     padding-left: 0 !important;
@@ -239,5 +274,38 @@
   .right {
     padding-left: 0 !important;
     margin-left: 1rem !important;
+  }
+
+  #text {
+    font-size: 0.7rem !important;
+    margin-right: 0rem !important;
+  }
+  .glitch {
+    font-size: 1rem !important;
+    font-weight: 700;
+    padding-left: 0 !important;
+    text-align: center;
+  }
+
+  .left {
+    padding-left: 0 !important;
+    margin-left: 5rem !important;
+  }
+
+  .right {
+    padding-left: 0 !important;
+    margin-left: 2rem !important;
+    margin-top: 5rem !important;
+  }
+
+  .grid-container {
+    justify-content: space-around !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  .btn {
+    font-size: 7px !important;
+    padding: 3px 5px !important;
+    margin-top: 0.5rem !important;
   }
 }

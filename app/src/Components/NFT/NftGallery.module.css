@@ -166,6 +166,7 @@
   max-height: 436px;
   border-radius: 12px;
   padding: 8px;
+  margin: 1rem;
   border: 1px solid #cfd9f0;
   cursor: pointer;
 }

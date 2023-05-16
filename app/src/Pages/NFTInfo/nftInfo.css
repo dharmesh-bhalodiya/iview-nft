@@ -1,5 +1,8 @@
 .nft-info {
-  min-height: 90vh;
+  display: flex !important;
+  min-height: 70vh;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
 }
 
 .nft-img {
@@ -7,14 +10,17 @@
   width: 50%;
 }
 
-.left {
-  display: grid;
-  justify-content: center;
+.user-name,
+.user-address {
+  display: flex;
   align-items: center;
+  /* padding-bottom: 1rem; */
+}
+
+.left {
+  /* margin-right: 5rem !important; */
 }
 
 .right {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  /* margin: 0 0 0 10rem !important; */
 }

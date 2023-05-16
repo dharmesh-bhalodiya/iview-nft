@@ -1,22 +1,26 @@
 import React from "react";
 import Background from "../../Components/Background/Background";
 import { useSelector } from "react-redux";
-import styles from "../../Components/NFT/NftGallery.module.css";
-import { Grid } from "@mui/material";
+// import styles from "../../Components/NFT/NftGallery.module.css";
+import { Container, Grid } from "@mui/material";
 import "./nftInfo.css";
-import NavButtons from "../../Components/Navigation Buttons/NavButtons";
 
 function NftInfo() {
-  const nft = useSelector((state) => state.nftDetail.nftDetail);
+  const nft = useSelector((state) => state.walletReducer.nftDetail);
   return (
     <div>
-      {console.log(nft)}
       <Background />
-      <NavButtons />
-      <Grid container spacing={3} className="nft-info">
-        <Grid item xs={6} className="left">
+      <Container className="nft-info">
+        <Grid
+          container
+          item
+          xs={6}
+          className="left"
+          flexDirection={"column"}
+          justifyContent={"start"}
+        >
           <h3>{nft.title}</h3>
-          <div className={styles.symbol_container}>
+          <div className="user-name">
             <p>{nft.symbol}</p>
 
             {nft.verified === "verified" ? (
@@ -30,8 +34,8 @@ function NftInfo() {
               />
             ) : null}
           </div>
-          <div className={styles.contract_container}>
-            <p className={styles.contract_container}>{nft.contract}</p>
+          <div className="user-address">
+            <p>{nft.contract}</p>
             <img
               src={
                 "https://etherscan.io/images/brandassets/etherscan-logo-circle.svg"
@@ -39,12 +43,11 @@ function NftInfo() {
               width="15px"
               height="15px"
               alt=""
-              className={styles.etherium_logo}
             />
           </div>
           <p>{nft.description}</p>
         </Grid>
-        <Grid item xs={6} className="right">
+        <Grid container item xs={6} className="right" justifyContent={"end"}>
           {nft.format === "mp4" ? (
             <video src={nft.media} controls className="nft-img">
               Your browser does not support the video tag.
@@ -53,7 +56,7 @@ function NftInfo() {
             <img src={nft.media} alt="" className="nft-img"></img>
           )}
         </Grid>
-      </Grid>
+      </Container>
     </div>
   );
 }

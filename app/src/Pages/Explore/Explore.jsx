@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import NFTCard from "../../Components/NFT/NFTGallery";
 import NavButtons from "../../Components/Navigation Buttons/NavButtons";
 import Background from "../../Components/Background/Background";
+import { useSelector } from "react-redux";
 
 function Explore() {
   const nfts = [
@@ -87,15 +88,25 @@ function Explore() {
       console.log(provider);
     }
   }, []);
+
+  const address = useSelector((state) => state?.walletAddress);
+  console.log(address);
+
   return (
     <>
       <Background />
+
       <Box sx={{ minHeight: "100vh" }}>
         <Typography
           variant="h3"
-          sx={{ margin: "1rem", textAlign: "center", fontFamily: "Archive" }}
+          sx={{
+            margin: "1rem",
+            marginBottom: "2rem",
+            textAlign: "center",
+            fontFamily: "Archive",
+          }}
         >
-          Welcome to infinity trove
+          Welcome to <span style={{ color: "#b92526" }}>iTROVE</span>
         </Typography>
         <NavButtons />
         <NFTCard nfts={nfts} />

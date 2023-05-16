@@ -7,12 +7,11 @@ function Footer() {
       variant="h6"
       sx={{
         marginTop: "5rem",
-        marginBottom: "2rem",
         textAlign: "center",
-        color: "white",
+        // color: "white",
       }}
     >
-      copyrights@iView Labs Pvt. Ltd. 2023
+      (c) Copyrights 2023 by iView Labs Pvt. Ltd. All rights reserved
     </Typography>
   );
 }
