@@ -100,7 +100,7 @@ function LandingPage() {
                 transition={{ delay: 1.5 }}
                 className="right-text"
               >
-                Join the digital revolution and start trading today.
+                Join the digital revolution and start trading today
               </motion.div>
             </Typography>
           </Grid>

@@ -2,30 +2,23 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import { Button, Container } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./NavButtons.css";
-import { useState } from "react";
 
 export default function NavButtons() {
   const history = useNavigate();
 
-  const [btnActive, setBtnActive] = useState(false);
+  const btnActiveExplore = true;
+  const btnActiveOwned = true;
+  let location = useLocation();
 
   const explore = () => {
-    // handleClick();
-    setBtnActive(true);
     history("/Explore");
   };
   const ownedNft = () => {
-    // handleClick();
-    setBtnActive(true);
     history("/Ownednft");
   };
-
-  // const handleClick = () => {
-  //   setBtnActive();
-  // };
 
   const theme = createTheme({
     palette: {
@@ -63,7 +56,11 @@ export default function NavButtons() {
             onClick={() => {
               explore();
             }}
-            className={btnActive ? "btnActive" : "btnNotActive"}
+            className={
+              btnActiveExplore && location.pathname === "/Explore"
+                ? "btnActive"
+                : "btnNotActive"
+            }
           >
             Explore
           </Button>
@@ -77,7 +74,11 @@ export default function NavButtons() {
             onClick={() => {
               ownedNft();
             }}
-            className={btnActive ? "btnActive" : "btnNotActive"}
+            className={
+              btnActiveOwned && location.pathname === "/Ownednft"
+                ? "btnActive"
+                : "btnNotActive"
+            }
           >
             Owned NFT
           </Button>

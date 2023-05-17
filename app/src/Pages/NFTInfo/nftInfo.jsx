@@ -4,9 +4,16 @@ import { useSelector } from "react-redux";
 // import styles from "../../Components/NFT/NftGallery.module.css";
 import { Container, Grid } from "@mui/material";
 import "./nftInfo.css";
+import { useMotionValue, useTransform, motion } from "framer-motion";
 
 function NftInfo() {
   const nft = useSelector((state) => state.walletReducer.nftDetail);
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useTransform(y, [500, -300], [50, -50]);
+  const rotateY = useTransform(x, [-100, 500], [-50, 50]);
+
   return (
     <div>
       <Background />
@@ -19,8 +26,8 @@ function NftInfo() {
           flexDirection={"column"}
           justifyContent={"start"}
         >
-          <h3>{nft.title}</h3>
-          <div className="user-name">
+          <h3 className="nft-text">{nft.title}</h3>
+          <div className="user-name nft-text">
             <p>{nft.symbol}</p>
 
             {nft.verified === "verified" ? (
@@ -31,10 +38,11 @@ function NftInfo() {
                 width="20px"
                 height="20px"
                 alt=""
+                className="symbol"
               />
             ) : null}
           </div>
-          <div className="user-address">
+          <div className="user-address nft-text">
             <p>{nft.contract}</p>
             <img
               src={
@@ -43,18 +51,21 @@ function NftInfo() {
               width="15px"
               height="15px"
               alt=""
+              className="symbol"
             />
           </div>
           <p>{nft.description}</p>
         </Grid>
         <Grid container item xs={6} className="right" justifyContent={"end"}>
-          {nft.format === "mp4" ? (
-            <video src={nft.media} controls className="nft-img">
-              Your browser does not support the video tag.
-            </video>
-          ) : (
-            <img src={nft.media} alt="" className="nft-img"></img>
-          )}
+          <motion.div style={{ x, y, rotateX, rotateY, z: 100 }}>
+            {nft.format === "mp4" ? (
+              <video src={nft.media} controls className="nft-img">
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <img src={nft.media} alt="" className="nft-img"></img>
+            )}
+          </motion.div>
         </Grid>
       </Container>
     </div>
