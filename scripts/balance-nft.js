@@ -3,18 +3,17 @@ const hre = require("hardhat");
 
 async function main() {
   
-  const [deployer] = await hre.ethers.getSigners();
-
-  console.log("Checking  balance of the account:", deployer.address);
-
+  const NFT_ADDRESS = process.env.NFT_ADDRESS;
   const COIN_ADDRESS = process.env.COIN_ADDRESS;
-
+  
+  const NFT = await hre.ethers.getContractAt("iViewNFT", NFT_ADDRESS);
   const Coin = await hre.ethers.getContractAt("iViewCoin", COIN_ADDRESS);
-  const coinBalance = await Coin.balanceOf(deployer.address);
 
+  const nftBal1 = await NFT.GetContractCoinBalance();
   console.log(
-    `iViewCoin coin Balance to ${hre.ethers.utils.formatUnits(coinBalance)}`
+    `NFT Contract Coin Balance : ${hre.ethers.utils.formatUnits(nftBal1)}`
   );
+ 
 }
 
 // We recommend this pattern to be able to use async/await everywhere

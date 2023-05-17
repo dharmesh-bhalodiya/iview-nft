@@ -3,29 +3,21 @@ const hre = require("hardhat");
 
 async function main() {
   
-  const [deployer] = await hre.ethers.getSigners();
-  let buyer = "";
-
-  const accounts = await hre.ethers.getSigners();
-  for (const account of accounts) {
-    if(account.address != deployer.address)
-    {
-        buyer = account;
-        break;
-    }
-  }
-
+  const buyerAdd = "0x70997970C51812dc3A010C7d01b50e0d17dc79C8";
+  const amountToBuy = 10;
+  let buyer = await hre.ethers.getSigner(buyerAdd);
+  
   console.log("Buying account:", buyer.address);
 
   const COIN_ADDRESS = process.env.COIN_ADDRESS;
 
   const Coin = await hre.ethers.getContractAt("iViewCoin", COIN_ADDRESS);
 
-  await Coin.approve(buyer.address, hre.ethers.utils.parseEther("10"));
+  const currentPrice = await Coin.getPrice();
 
-  await Coin.connect(buyer).buyCoin(hre.ethers.utils.parseEther("10"),{
-        value: hre.ethers.utils.parseEther("11")
-    });
+  await Coin.connect(buyer).buyCoin(hre.ethers.utils.parseEther(String(amountToBuy)),{
+        value: hre.ethers.utils.parseEther(String(currentPrice * amountToBuy))
+  });
 
   const coinBalance = await Coin.connect(buyer).balanceOf(buyer.address);
 
