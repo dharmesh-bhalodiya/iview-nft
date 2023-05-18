@@ -48,7 +48,14 @@ function OwnedNFT() {
     <>
       <Background />
       <Box sx={{ minHeight: "100vh" }}>
-        <Typography variant="h3" sx={{ margin: "1rem", textAlign: "center" }}>
+        <Typography
+          variant="h3"
+          sx={{
+            margin: "1rem",
+            marginBottom: "2rem",
+            textAlign: "center",
+          }}
+        >
           Owned NFT's
         </Typography>
         <NavButtons />

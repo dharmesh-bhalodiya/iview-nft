@@ -1,4 +1,5 @@
 import logo from "../../Assets/landingpage-logo.png";
+import logo1 from "../../Assets/iTROVE_Logo.png";
 import "./LandingPage.css";
 import { Button, Grid, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +20,7 @@ function LandingPage() {
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
-        dispatch(walletAction(accounts[0]));
+        await dispatch(walletAction(accounts[0]));
         console.log(accounts[0]);
 
         history("/Explore");
@@ -43,6 +44,8 @@ function LandingPage() {
   return (
     <>
       <Background />
+      <img src={logo1} alt="" className="landingpagelogo" />
+
       <div className="landing-page">
         <img src={logo} alt="" className="landing-page-logo" />
 
@@ -52,24 +55,20 @@ function LandingPage() {
           sx={{ position: "absolute" }}
           className="grid-container"
         >
-          <Grid
-            item
-            xs={3}
-            sx={{
-              marginLeft: "13rem",
-            }}
-            className="left"
-          >
+          <Grid item xs={3} className="left">
             <Typography
               variant="h3"
-              sx={{ paddingLeft: "3rem" }}
               style={{
                 fontFamily: "Archive",
                 transform: "",
               }}
               className="glitch"
             >
-              <motion.div animate={{ x: 600 }} transition={{ delay: 1 }}>
+              <motion.div
+                animate={{ x: 600 }}
+                transition={{ delay: 1 }}
+                className="left-text"
+              >
                 Your gateway to the crypto world
               </motion.div>
             </Typography>
@@ -78,8 +77,8 @@ function LandingPage() {
             item
             xs={3}
             sx={{
-              marginLeft: "22rem",
-              paddingLeft: "3rem",
+              // marginLeft: "22rem",
+              // paddingLeft: "3rem",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
@@ -96,24 +95,25 @@ function LandingPage() {
               }}
               className="glitch"
             >
-              <motion.div animate={{ x: -600 }} transition={{ delay: 1.5 }}>
-                Join the digital revolution and start trading today.
+              <motion.div
+                animate={{ x: -600 }}
+                transition={{ delay: 1.5 }}
+                className="right-text"
+              >
+                Join the digital revolution and start trading today
               </motion.div>
             </Typography>
-
-            <motion.div animate={{ x: -600 }} transition={{ delay: 2 }}>
-              <Button
-                variant="contained"
-                href="#contained-buttons"
-                sx={{ position: "relative", top: "10%" }}
-                className="btn landingbtn"
-                onClick={() => connectWallet()}
-              >
-                Connect Wallet
-              </Button>
-            </motion.div>
           </Grid>
         </Grid>
+
+        <Button
+          variant="contained"
+          href="#contained-buttons"
+          className="btn landingbtn"
+          onClick={() => connectWallet()}
+        >
+          Connect Wallet
+        </Button>
       </div>
     </>
   );

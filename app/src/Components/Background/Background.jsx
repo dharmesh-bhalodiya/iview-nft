@@ -1,6 +1,4 @@
-import React, { useCallback } from "react";
 import Particles from "react-particles";
-import { Engine } from "tsparticles-engine";
 import { loadFull } from "tsparticles";
 
 function Background() {
@@ -26,7 +24,7 @@ function Background() {
         },
         particles: {
           number: {
-            value: 400,
+            value: 1000,
             density: {
               enable: true,
             },
@@ -103,7 +101,7 @@ function Background() {
               opacity: 0,
             },
             repulse: {
-              distance: 400,
+              distance: 200,
               duration: 0.4,
             },
             push: {

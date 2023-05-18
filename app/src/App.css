@@ -40,6 +40,9 @@ a {
 
 .btn {
   background: #757677 !important;
+  color: #d2d3d4 !important;
+  border-radius: 50px !important;
+  padding: 3px 20px !important;
 }
 
 .App {

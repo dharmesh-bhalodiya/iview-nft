@@ -1,22 +1,33 @@
 import React from "react";
 import Background from "../../Components/Background/Background";
 import { useSelector } from "react-redux";
-import styles from "../../Components/NFT/NftGallery.module.css";
-import { Grid } from "@mui/material";
+// import styles from "../../Components/NFT/NftGallery.module.css";
+import { Container, Grid } from "@mui/material";
 import "./nftInfo.css";
-import NavButtons from "../../Components/Navigation Buttons/NavButtons";
+import { useMotionValue, useTransform, motion } from "framer-motion";
 
 function NftInfo() {
-  const nft = useSelector((state) => state.nftDetail.nftDetail);
+  const nft = useSelector((state) => state.walletReducer.nftDetail);
+
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const rotateX = useTransform(y, [500, -300], [50, -50]);
+  const rotateY = useTransform(x, [-100, 500], [-50, 50]);
+
   return (
     <div>
-      {console.log(nft)}
       <Background />
-      <NavButtons />
-      <Grid container spacing={3} className="nft-info">
-        <Grid item xs={6} className="left">
-          <h3>{nft.title}</h3>
-          <div className={styles.symbol_container}>
+      <Container className="nft-info">
+        <Grid
+          container
+          item
+          xs={6}
+          className="left"
+          flexDirection={"column"}
+          justifyContent={"start"}
+        >
+          <h3 className="nft-text">{nft.title}</h3>
+          <div className="user-name nft-text">
             <p>{nft.symbol}</p>
 
             {nft.verified === "verified" ? (
@@ -27,11 +38,12 @@ function NftInfo() {
                 width="20px"
                 height="20px"
                 alt=""
+                className="symbol"
               />
             ) : null}
           </div>
-          <div className={styles.contract_container}>
-            <p className={styles.contract_container}>{nft.contract}</p>
+          <div className="user-address nft-text">
+            <p>{nft.contract}</p>
             <img
               src={
                 "https://etherscan.io/images/brandassets/etherscan-logo-circle.svg"
@@ -39,21 +51,23 @@ function NftInfo() {
               width="15px"
               height="15px"
               alt=""
-              className={styles.etherium_logo}
+              className="symbol"
             />
           </div>
           <p>{nft.description}</p>
         </Grid>
-        <Grid item xs={6} className="right">
-          {nft.format === "mp4" ? (
-            <video src={nft.media} controls className="nft-img">
-              Your browser does not support the video tag.
-            </video>
-          ) : (
-            <img src={nft.media} alt="" className="nft-img"></img>
-          )}
+        <Grid container item xs={6} className="right" justifyContent={"end"}>
+          <motion.div style={{ x, y, rotateX, rotateY, z: 100 }}>
+            {nft.format === "mp4" ? (
+              <video src={nft.media} controls className="nft-img">
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <img src={nft.media} alt="" className="nft-img"></img>
+            )}
+          </motion.div>
         </Grid>
-      </Grid>
+      </Container>
     </div>
   );
 }

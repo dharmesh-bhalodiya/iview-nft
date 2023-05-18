@@ -1,20 +1,32 @@
 .nft-info {
-  min-height: 90vh;
+  display: flex !important;
+  min-height: 70vh;
+  align-items: center !important;
+  flex-wrap: nowrap !important;
 }
 
 .nft-img {
-  height: 50%;
-  width: 50%;
+  height: 90%;
+  width: 90%;
+  margin-top: 4rem;
+  margin-left: 4rem;
+  border: 2px solid #757677;
+  border-top: none;
+  border-left: none;
+  padding: 0 2rem 2rem 0;
 }
 
-.left {
-  display: grid;
-  justify-content: center;
-  align-items: center;
+.nft-info .nft-text {
+  padding-bottom: 2rem;
 }
 
-.right {
+.nft-info .symbol {
+  margin-left: 10px;
+}
+
+.user-name,
+.user-address {
   display: flex;
-  justify-content: center;
   align-items: center;
+  /* padding-bottom: 1rem; */
 }

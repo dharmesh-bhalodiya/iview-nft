@@ -1,0 +1,10 @@
+.btnActive {
+  background-color: #757677 !important;
+  border: 2px solid #d3d4d5 !important;
+}
+
+.btnNotActive {
+  background-color: transparent !important;
+  border: 2px solid #d3d4d5 !important;
+  color: #d3d4d5 !important;
+}
