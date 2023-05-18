@@ -7,7 +7,7 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 contract iViewCoin is ERC20, Ownable {
 
     uint  _initial_supply = 1000 * (10**18);
-    uint _price_eth = 2;
+    uint _price_eth = 1;
 
 
     constructor() ERC20("iViewCoin", "IVC") {
