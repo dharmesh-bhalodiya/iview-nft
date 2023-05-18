@@ -1,8 +1,9 @@
 import React from "react";
 import NFTCard from "../../Components/NFT/NFTGallery";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import NavButtons from "../../Components/Navigation Buttons/NavButtons";
 import Background from "../../Components/Background/Background";
+
 
 function OwnedNFT() {
   const nfts = [
@@ -47,18 +48,9 @@ function OwnedNFT() {
   return (
     <>
       <Background />
-      <Box sx={{ minHeight: "100vh" }}>
-        <Typography
-          variant="h3"
-          sx={{
-            margin: "1rem",
-            marginBottom: "2rem",
-            textAlign: "center",
-          }}
-        >
-          Owned NFT's
-        </Typography>
+      <Box sx={{ minHeight: "100vh", marginTop: "6.5em" }}>
         <NavButtons />
+        
         <NFTCard nfts={nfts} />
       </Box>
     </>
