@@ -12,8 +12,17 @@ async function main() {
   const price = await Coin.getPrice();
 
   console.log(
-    `iViewCoin current price : ${price} IVC`
+    `iViewCoin current price : ${price} ETH`
   );
+
+
+  // await Coin.updatePrice(hre.ethers.utils.parseEther("2"));
+
+  // const price1 = await Coin.getPrice();
+
+  // console.log(
+  //   `iViewCoin current price : ${price1} ETH`
+  // );
 }
 
 // We recommend this pattern to be able to use async/await everywhere
