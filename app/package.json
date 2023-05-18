@@ -17,11 +17,13 @@
     "@testing-library/user-event": "^13.5.0",
     "alchemy-sdk": "^2.8.3",
     "axios": "^1.4.0",
+    "dotenv": "^16.0.3",
     "ethers": "^5.5.4",
     "form-data": "^4.0.0",
     "framer-motion": "^7.6.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
     "react-particles": "^2.9.3",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
@@ -29,8 +31,8 @@
     "react-tsparticles": "^2.9.3",
     "redux-persist": "^6.0.0",
     "tsparticles": "^2.9.3",
-    "web-vitals": "^2.1.4",
-    "web3": "^1.9.0"
+    "wagmi": "^1.0.5",
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -58,8 +60,5 @@
   },
   "author": "iView Labs Pvt. Ltd.",
   "license": "ISC",
-  "devDependencies": {
-    "source-map-loader": "^4.0.1",
-    "webpack": "^5.82.0"
-  }
+  "devDependencies": {}
 }

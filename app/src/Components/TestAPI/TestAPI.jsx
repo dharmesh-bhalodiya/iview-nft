@@ -6,7 +6,7 @@ import Background from "../Background/Background";
 
 function TestAPI() {
   const getBalance = async () => {
-    const result = await getETHBalance();
+    const result = await getETHBalance(address);
     console.log(result);
   };
   useEffect(() => {
