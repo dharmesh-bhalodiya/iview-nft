@@ -6,7 +6,7 @@ function Footer() {
     <Typography
       variant="h6"
       sx={{
-        marginTop: "3rem",
+        marginTop: "7rem",
         textAlign: "center",
         marginBottom: "1rem",
         // color: "white",

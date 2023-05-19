@@ -5,6 +5,7 @@ import { Typography } from "@mui/material";
 import Background from "../Background/Background";
 
 function TestAPI() {
+  const address = useSelector((state) => state?.walletReducer?.walletAddress);
   const getBalance = async () => {
     const result = await getETHBalance(address);
     console.log(result);
@@ -12,8 +13,6 @@ function TestAPI() {
   useEffect(() => {
     getBalance();
   }, []);
-
-  const address = useSelector((state) => state?.walletReducer?.walletAddress);
 
   return (
     <div style={{ minHeight: "100vh" }}>

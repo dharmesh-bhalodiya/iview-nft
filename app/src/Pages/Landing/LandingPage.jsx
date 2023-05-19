@@ -65,7 +65,7 @@ function LandingPage() {
               className="glitch"
             >
               <motion.div
-                animate={{ x: 700 }}
+                animate={{ x: 800 }}
                 transition={{ delay: 1 }}
                 className="left-text"
               >
@@ -96,7 +96,7 @@ function LandingPage() {
               className="glitch"
             >
               <motion.div
-                animate={{ x: -700 }}
+                animate={{ x: -800 }}
                 transition={{ delay: 1.5 }}
                 className="right-text"
               >

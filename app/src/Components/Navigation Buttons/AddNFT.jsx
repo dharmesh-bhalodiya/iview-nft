@@ -36,7 +36,7 @@ function AddNFT() {
           }
           onClick={handleClick}
         >
-          Add NFT
+          Mint NFT
         </Button>
       </ThemeProvider>
     </Box>
