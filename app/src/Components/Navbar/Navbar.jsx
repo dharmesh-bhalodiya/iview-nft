@@ -20,12 +20,12 @@ function Navbar() {
     return null;
   }
 
-  console.log("add", address);
+  // console.log("add", address);
   const walletAddress = address?.toString();
   // const address = localStorage.getItem("address");
   const formattedAdd =
     walletAddress?.substr(0, 4) + "...." + walletAddress?.substr(-4);
-  console.log(walletAddress);
+  // console.log(walletAddress);
 
   const handleClick = () => {
     history("/");
@@ -33,7 +33,6 @@ function Navbar() {
 
   return (
     <Container maxWidth="xl">
-      {console.log(address)}
       <Toolbar
         disableGutters
         sx={{ marginTop: "1rem", justifyContent: "space-between" }}
@@ -45,22 +44,38 @@ function Navbar() {
           onClick={handleClick}
         />
 
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Typography
+            sx={{
+              paddingRight: "8px",
+              fontWeight: "bold",
+            }}
+          >
+            <i className="fa fa-wallet"></i>
+            &nbsp;&nbsp;IVC Balance : 0
+          </Typography>
+          <Button
+            sx={{
+              paddingLeft: "8px",
+              fontWeight: "bold",
+            }}
+            className="btn buymore-btn"
+          >
+            Buy More
+          </Button>
+        </div>
+
         <Button
           sx={{
             display: "flex",
             alignItems: "center",
             flexGrow: 0,
           }}
-          className="btn"
+          className="walletAddress"
         >
-          <Typography sx={{ paddingRight: "8px", fontWeight: "bold" }}>
-            0 ITC
-          </Typography>
-          <span className="walletAddress">
-            <i className="fa fa-wallet"></i>
+          <span className="">
             <Typography
               sx={{
-                paddingLeft: "8px",
                 fontWeight: "bold",
               }}
             >
