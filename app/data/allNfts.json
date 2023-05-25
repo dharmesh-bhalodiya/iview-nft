@@ -1,0 +1,68 @@
+{
+    "nfts": [
+        {
+            "media": "https://nft-cdn.alchemy.com/eth-mainnet/45ec950099b8af25a8fef5bae54d0dd6",
+            "title": "Cool Oliens #117",
+            "symbol": "COOLIEN",
+            "contract": "0x2F218d79673DEBBf713b3a531CB2Aa2948c25b2a",
+            "description": "An NFT collection for royal Oliens holders.",
+            "verified": "verified"
+        },
+        {
+            "media": "https://nft-cdn.alchemy.com/eth-mainnet/856176a70abd08f061024a0d40ca9da0",
+            "title": "Cool Oliens #117",
+            "symbol": "COOLIEN",
+            "contract": "0x2F218d79673DEBBf713b3a531CB2Aa2948c25b2a",
+            "description": "An NFT collection for royal Oliens holders.",
+            "verified": "verified"
+        },
+        {
+            "media": "https://nft-cdn.alchemy.com/eth-mainnet/e3669112e8c5cfb4cf7638702283dca0",
+            "title": "Cool Oliens #117",
+            "symbol": "COOLIEN",
+            "contract": "0x2F218d79673DEBBf713b3a531CB2Aa2948c25b2a",
+            "description": "An NFT collection for royal Oliens holders.",
+            "verified": "verified"
+        },
+        {
+            "media": "https://nft-cdn.alchemy.com/eth-mainnet/68e88751dbebf9d5fbd20ebbe5781db5",
+            "title": "Cool Oliens #117",
+            "symbol": "COOLIEN",
+            "contract": "0x2F218d79673DEBBf713b3a531CB2Aa2948c25b2a",
+            "description": "An NFT collection for royal Oliens holders.",
+            "verified": "verified"
+        },
+        {
+            "media": "https://nft-cdn.alchemy.com/eth-mainnet/68e88751dbebf9d5fbd20ebbe5781db5",
+            "title": "Cool Oliens #117",
+            "symbol": "COOLIEN",
+            "contract": "0x2F218d79673DEBBf713b3a531CB2Aa2948c25b2a",
+            "description": "An NFT collection for royal Oliens holders.",
+            "verified": "verified"
+        },
+        {
+            "media": "https://nft-cdn.alchemy.com/eth-mainnet/45ec950099b8af25a8fef5bae54d0dd6",
+            "title": "Cool Oliens #117",
+            "symbol": "COOLIEN",
+            "contract": "0x2F218d79673DEBBf713b3a531CB2Aa2948c25b2a",
+            "description": "An NFT collection for royal Oliens holders.",
+            "verified": "verified"
+        },
+        {
+            "media": "https://nft-cdn.alchemy.com/eth-mainnet/856176a70abd08f061024a0d40ca9da0",
+            "title": "Cool Oliens #117",
+            "symbol": "COOLIEN",
+            "contract": "0x2F218d79673DEBBf713b3a531CB2Aa2948c25b2a",
+            "description": "An NFT collection for royal Oliens holders.",
+            "verified": "verified"
+        },
+        {
+            "media": "https://nft-cdn.alchemy.com/eth-mainnet/e3669112e8c5cfb4cf7638702283dca0",
+            "title": "Cool Oliens #117",
+            "symbol": "COOLIEN",
+            "contract": "0x2F218d79673DEBBf713b3a531CB2Aa2948c25b2a",
+            "description": "An NFT collection for royal Oliens holders.",
+            "verified": "verified"
+        }
+    ]
+}

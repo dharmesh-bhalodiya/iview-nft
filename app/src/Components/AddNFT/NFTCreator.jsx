@@ -3,7 +3,7 @@ import styles from "./NftCreator.module.css";
 // import { Contract } from "alchemy-sdk";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import Background from "../Background/Background";
+import { Box } from "@mui/material";
 // import { useAccount, useWalletClient } from "wagmi";
 
 // React component for NFT creator form
@@ -16,6 +16,7 @@ export default function NftCreator({ contractAddress, abi }) {
   const [imageFile, setImageFile] = useState();
   const [NFTName, setNFTName] = useState();
   const [NFTDescription, setNFTDescription] = useState();
+  const [NFTPrice, setNFTPrice] = useState();
   const [NFTAttributes, setNFTAttributes] = useState([
     { trait_type: "", value: "" },
   ]);
@@ -64,8 +65,7 @@ export default function NftCreator({ contractAddress, abi }) {
 
   return (
     // Main page container
-    <div>
-      <Background />
+    <Box sx={{ marginTop: "2em" }}>
       <div className={styles.page_flexBox}>
         <div
           // Check if transaction hash exists to change styling of container
@@ -123,6 +123,21 @@ export default function NftCreator({ contractAddress, abi }) {
                 />
               ) : (
                 <p>{NFTDescription}</p>
+              )}
+            </div>
+            {/* Input field for NFT price */}
+            <div className={styles.input_group}>
+              <h3 className={styles.input_label}>PRICE</h3>
+              {!txHash ? (
+                <input
+                  className={styles.input}
+                  onChange={(e) => setNFTPrice(e.target.value)}
+                  value={NFTPrice}
+                  placeholder="NFT Price"
+                  type="number"
+                />
+              ) : (
+                <p>{NFTPrice}</p>
               )}
             </div>
             {/* Dynamic attribute input fields */}
@@ -233,6 +248,6 @@ export default function NftCreator({ contractAddress, abi }) {
           </div>
         </div>
       </div>
-    </div>
+    </Box>
   );
 }

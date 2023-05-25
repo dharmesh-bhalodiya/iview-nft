@@ -1,8 +1,11 @@
 .page_flexBox {
   display: flex;
   justify-content: center;
-  margin-top: 3rem;
-  /* min-height: 65vh; */
+  align-items: center;
+  background-color: #757677;
+  max-width: fit-content;
+  margin: auto;
+  border-radius: 8px;
 }
 
 .page_container {

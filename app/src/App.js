@@ -22,7 +22,7 @@ function App() {
         <PersistGate persistor={persistor}>
           <Navbar />
           <Routes>
-            <Route path={"/Explore"} element={<Explore />} />
+            <Route path={"/Explore/:id?"} element={<Explore />} />
             <Route path={"/Ownednft"} element={<OwnedNFT />} />
             <Route path={"/nftInfo"} element={<NFTInfo />} />
             <Route path={"/nftCreator"} element={<NFTCreator />} />

@@ -6,10 +6,23 @@ import logo from "../../Assets/iTROVE_Logo.png";
 import "./Navbar.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { Button } from "@mui/material";
+import { Box, Button, IconButton, Menu, MenuItem } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useState } from "react";
+import DialogBox from "./Buy More/DialogBox";
 
 function Navbar() {
   const location = useLocation();
+  const [open, setOpen] = useState(false);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget);
+  };
+
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null);
+  };
 
   const history = useNavigate();
 
@@ -20,71 +33,174 @@ function Navbar() {
     return null;
   }
 
-  // console.log("add", address);
   const walletAddress = address?.toString();
-  // const address = localStorage.getItem("address");
   const formattedAdd =
     walletAddress?.substr(0, 4) + "...." + walletAddress?.substr(-4);
-  // console.log(walletAddress);
 
   const handleClick = () => {
     history("/");
   };
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDisconnect = () => {
+    try {
+      console.log("handle Disconnect");
+      window.ethereum.disconnect();
+      // Refresh the page or update the state to reflect the disconnection
+    } catch (error) {
+      // Handle the error if disconnecting fails
+    }
+  };
+
   return (
-    <Container maxWidth="xl">
-      <Toolbar
-        disableGutters
-        sx={{ marginTop: "1rem", justifyContent: "space-between" }}
-      >
-        <img
-          src={logo}
-          alt=""
-          style={{ height: "70px", cursor: "pointer" }}
-          onClick={handleClick}
-        />
-
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <Typography
-            sx={{
-              paddingRight: "8px",
-              fontWeight: "bold",
-            }}
-          >
-            <i className="fa fa-wallet"></i>
-            &nbsp;&nbsp;IVC Balance : 0
-          </Typography>
-          <Button
-            sx={{
-              paddingLeft: "8px",
-              fontWeight: "bold",
-            }}
-            className="btn buymore-btn"
-          >
-            Buy More
-          </Button>
-        </div>
-
-        <Button
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            flexGrow: 0,
-          }}
-          className="walletAddress"
+    <div>
+      <Container maxWidth="xl">
+        <Toolbar
+          disableGutters
+          sx={{ marginTop: "1em", justifyContent: "space-between" }}
         >
-          <span className="">
+          <img
+            src={logo}
+            alt=""
+            style={{ height: "3em", cursor: "pointer" }}
+            onClick={handleClick}
+          />
+
+          <Box
+            sx={{ display: { xs: "none", md: "flex", alignItems: "center" } }}
+          >
             <Typography
               sx={{
+                paddingRight: "8px",
                 fontWeight: "bold",
               }}
             >
-              {formattedAdd}
+              <i className="fa fa-wallet"></i>
+              &nbsp;&nbsp;IVC Balance : 0
             </Typography>
-          </span>
-        </Button>
-      </Toolbar>
-    </Container>
+            <Button
+              sx={{
+                paddingLeft: "8px",
+                fontWeight: "bold",
+              }}
+              className="btn buymore-btn"
+              onClick={handleClickOpen}
+            >
+              Buy More
+            </Button>
+            {open && <DialogBox open={open} setOpen={setOpen} />}
+          </Box>
+
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <Button
+              sx={{
+                alignItems: "center",
+                flexGrow: 0,
+              }}
+              className="walletAddress"
+              onClick={handleDisconnect}
+            >
+              <span className="">
+                <Typography
+                  sx={{
+                    fontWeight: "bold",
+                  }}
+                >
+                  {formattedAdd}
+                </Typography>
+              </span>
+            </Button>
+          </Box>
+
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "flex", md: "none" },
+              justifyContent: "end",
+            }}
+          >
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: "bottom",
+                horizontal: "left",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: "flex", md: "none" },
+              }}
+            >
+              <MenuItem
+                sx={{
+                  flexDirection: { xs: "column" },
+                  alignItems: "start",
+                }}
+                onClick={handleCloseNavMenu}
+              >
+                <Button
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    flexGrow: 0,
+                  }}
+                  className="walletAddress"
+                >
+                  <span className="">
+                    <Typography
+                      sx={{
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {formattedAdd}
+                    </Typography>
+                  </span>
+                </Button>
+                <Typography
+                  sx={{
+                    paddingRight: "8px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  <i className="fa fa-wallet"></i>
+                  &nbsp;&nbsp;IVC Balance : 0
+                </Typography>
+                <Button
+                  sx={{
+                    paddingLeft: "8px",
+                    fontWeight: "bold",
+                  }}
+                  className="btn buymore-btn"
+                  onClick={handleClickOpen}
+                >
+                  Buy More
+                </Button>
+                {open && <DialogBox open={open} setOpen={setOpen} />}
+              </MenuItem>
+            </Menu>
+          </Box>
+        </Toolbar>
+      </Container>
+    </div>
   );
 }
 export default Navbar;
