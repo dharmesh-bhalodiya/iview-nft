@@ -10,11 +10,23 @@ import { Box, Button, IconButton, Menu, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useState } from "react";
 import DialogBox from "./Buy More/DialogBox";
+import { getiViewCoinBalance } from "../../api/coin";
+import { useEffect } from "react";
 
 function Navbar() {
   const location = useLocation();
   const [open, setOpen] = useState(false);
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const [iViewCoinBalance, setIViewCoinBalance] = useState(0);
+  const getIVCoinBalance = async (walletAddress) => {
+    const result = await getiViewCoinBalance(walletAddress);
+    console.log(result);
+    setIViewCoinBalance(result);
+  };
+
+  useEffect(() => {
+    getIVCoinBalance(address);
+  }, []);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -79,7 +91,7 @@ function Navbar() {
               }}
             >
               <i className="fa fa-wallet"></i>
-              &nbsp;&nbsp;IVC Balance : 0
+              &nbsp;&nbsp;Current Balance : {iViewCoinBalance} IVC
             </Typography>
             <Button
               sx={{

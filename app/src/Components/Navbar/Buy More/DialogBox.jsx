@@ -5,29 +5,93 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Box } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import { useState } from "react";
-import { getIVCoinValue, getTotalETHCoin } from "../../../api/buycoin";
+import {
+  getcurrentiViewCoinPrice,
+  getETHBalance,
+  getiViewCoinBalance,
+  buyiViewCoin,
+} from "../../../api/coin";
+import { useEffect } from "react";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import { useSelector } from "react-redux";
 
 function DialogBox({ open, setOpen }) {
-  const [totalAmount, setTotalAmount] = useState(0);
+  const [amount, setAmount] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0.0);
+  const [coinValue, setCoinValue] = useState(0);
+  const [ethBalance, setETHBalance] = useState(0);
+  const [iViewCoinBalance, setIViewCoinBalance] = useState(0);
+  const [loading, setLoading] = useState(true);
+  const address = useSelector((state) => state?.walletReducer?.walletAddress);
 
   const handleClose = () => {
+    // await getIViewCoin(walletAddress, amt);
     setOpen(false);
+    setLoading(false);
   };
 
-  const oneIVCoinValue = getIVCoinValue();
-
-  const totalETH = getTotalETHCoin(totalAmount);
-
-  const getCoins = () => {
-    console.log("Total ETH : ", totalETH);
+  const getCoinValue = async () => {
+    const result = await getcurrentiViewCoinPrice();
+    setCoinValue(parseFloat(result).toFixed(1));
+    setLoading(false);
   };
+
+  const getBalance = async (walletAddress) => {
+    const result = await getETHBalance(walletAddress);
+    setETHBalance(result);
+    setLoading(false);
+  };
+
+  const getIVCoinBalance = async (walletAddress) => {
+    const result = await getiViewCoinBalance(walletAddress);
+    console.log(result);
+    setIViewCoinBalance(result);
+  };
+
+  const getIViewCoin = async (walletAddress, amt) => {
+    try {
+      const result = await buyiViewCoin(walletAddress, amt);
+      console.log(result);
+    } catch (error) {
+      console.log(error.message);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getCoinValue();
+    getBalance(address);
+    getIVCoinBalance(address);
+  }, [address]);
+
+  useEffect(() => {
+    const getTotalAmount = (amt) => {
+      setTotalAmount(parseFloat(amt * coinValue).toFixed(1));
+    };
+    getTotalAmount(amount);
+  }, [amount, coinValue]);
 
   return (
     <div>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Buy iViewCoin</DialogTitle>
+        <DialogContent>
+          <span
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Typography>IVC Balance : {iViewCoinBalance} IVC</Typography>
+            <Typography>
+              ETH Balance : {parseFloat(ethBalance).toFixed(1)} ETH
+            </Typography>
+          </span>
+        </DialogContent>
         <DialogContent>
           <Box
             component="form"
@@ -40,7 +104,7 @@ function DialogBox({ open, setOpen }) {
             noValidate
             autoComplete="off"
           >
-            <div>
+            <Stack direction={"row"}>
               <TextField
                 id="standard-number"
                 label="Enter Amount"
@@ -48,15 +112,21 @@ function DialogBox({ open, setOpen }) {
                 InputLabelProps={{
                   shrink: true,
                 }}
+                inputProps={{ min: 0 }}
                 variant="standard"
                 onChange={(e) =>
-                  setTotalAmount(e.target.value * oneIVCoinValue)
+                  setAmount(parseFloat(e.target.value).toFixed(1))
                 }
+                required
+                helperText={
+                  amount > ethBalance ? "Don't have enough Etherium" : ""
+                }
+                error={amount > ethBalance}
               />
               <TextField
                 id="standard-read-only-input"
                 label="Current IVC Value"
-                value={oneIVCoinValue}
+                value={coinValue}
                 InputProps={{
                   readOnly: true,
                 }}
@@ -65,25 +135,37 @@ function DialogBox({ open, setOpen }) {
               <TextField
                 id="standard-read-only-input"
                 label="Total ETH"
-                value={totalETH}
+                value={totalAmount}
                 InputProps={{
                   readOnly: true,
                 }}
                 variant="standard"
               />
-            </div>
+            </Stack>
           </Box>
         </DialogContent>
+        <Backdrop
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+          open={loading}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button
-            onClick={() => {
-              handleClose();
-              getCoins();
+            onClick={async () => {
+              setLoading(true);
+              await getIViewCoin(address, amount);
             }}
           >
             Buy
           </Button>
+          <Backdrop
+            sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={loading}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
         </DialogActions>
       </Dialog>
     </div>
