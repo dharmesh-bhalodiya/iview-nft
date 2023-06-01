@@ -6,12 +6,18 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { Button, DialogContentText } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-function MintNFTAccess({ open, setOpen, setIsButtonDisabled }) {
+function MintNFTAccess({ open, setOpen, setIsButtonDisabled, setPermission }) {
   const history = useNavigate();
 
   const handleClose = () => {
     setOpen(false);
   };
+
+  const grantPermission = (permission) => {
+    // return permission;
+    setPermission(permission);
+  };
+
   const handleClick = () => {
     history("/Explore/MyNFT");
   };
@@ -36,6 +42,7 @@ function MintNFTAccess({ open, setOpen, setIsButtonDisabled }) {
           <Button
             onClick={() => {
               setIsButtonDisabled(true);
+              grantPermission(false);
               handleClose();
               handleClick();
             }}
@@ -45,6 +52,7 @@ function MintNFTAccess({ open, setOpen, setIsButtonDisabled }) {
           <Button
             onClick={() => {
               setIsButtonDisabled(false);
+              grantPermission(true);
               handleClose();
             }}
             autoFocus

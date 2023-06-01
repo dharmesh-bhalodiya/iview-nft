@@ -2,22 +2,20 @@
   display: flex !important;
   min-height: 70vh;
   align-items: center !important;
+  margin-top: 4em;
   flex-wrap: nowrap !important;
 }
 
 .nft-img {
   height: 90%;
-  width: 90%;
-  margin-top: 4rem;
-  margin-left: 4rem;
+  width: 80%;
   border: 2px solid #757677;
-  border-top: none;
-  border-left: none;
-  padding: 0 2rem 2rem 0;
+  border-radius: 12px;
+  align-items: end;
 }
 
 .nft-info .nft-text {
-  padding-bottom: 2rem;
+  padding-bottom: 1em;
 }
 
 .nft-info .symbol {
@@ -28,5 +26,9 @@
 .user-address {
   display: flex;
   align-items: center;
-  /* padding-bottom: 1rem; */
+}
+
+.left .buymore-btn {
+  width: fit-content !important;
+  margin-top: 2em;
 }

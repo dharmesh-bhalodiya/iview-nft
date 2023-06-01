@@ -1,14 +1,10 @@
-// Import necessary modules and styles
 import styles from "./NftCreator.module.css";
-// import { Contract } from "alchemy-sdk";
 import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { uploadFileToIPFS, uploadJSONToIPFS } from "../../api/pinata";
-// import { useAccount, useSigner } from "wagmi";
+import { Alert, Snackbar } from "@mui/material";
 
-// React component for NFT creator form
 export default function NftCreator() {
-  const [txHash, setTxHash] = useState();
   const [imageURL, setImageURL] = useState();
   const [imageFile, setImageFile] = useState();
   const [NFTName, setNFTName] = useState();
@@ -19,6 +15,7 @@ export default function NftCreator() {
   ]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(false);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   // Function to check if all required form fields are filled
   const formNotFilled = () => {
@@ -29,6 +26,13 @@ export default function NftCreator() {
       !NFTAttributes[0].trait_type ||
       !NFTAttributes[0].value
     );
+  };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackbar(false);
   };
 
   // Callback function for handling file drop
@@ -76,14 +80,9 @@ export default function NftCreator() {
     setIsSubmitting(true);
 
     try {
-      // const metadataURL = await generateMetadata();
-      setTxHash("0x2F218d79673DEBBf713b3a531CB2Aa2948c25b2a");
-      console.log("NFT Name", NFTName);
-      console.log("NFT Description", NFTDescription);
-      console.log("NFT Price", NFTPrice);
-      console.log("NFT Attributes", NFTAttributes);
-      console.log("image", imageFile);
-      console.log("submitting", isSubmitting);
+      const metadataURL = await generateMetadata();
+      setOpenSnackbar(true);
+      console.log("metadataURL", metadataURL);
     } catch (e) {
       console.log(e);
       return;
@@ -91,16 +90,7 @@ export default function NftCreator() {
   };
   // Async function to generate metadata for the NFT
   const generateMetadata = async () => {
-    // Create a new instance of a FormData object
-    const formData = new FormData();
-    // Append the image file to the FormData object
-    formData.append("image", imageFile);
-
-    console.log("form data", formData);
-    console.log("image file", imageFile);
-
-    // Send a POST request to the api/pinFileToIpfs.js to store the NFT image or video on IPFS
-    const fileURL = await uploadFileToIPFS(imageFile).then((res) => res.json());
+    const fileURL = await uploadFileToIPFS(imageFile);
 
     // Create a metadata object with the NFT's description, image file URL, name, and attributes
     const metadata = {
@@ -108,24 +98,22 @@ export default function NftCreator() {
       image: fileURL,
       name: NFTName,
       attributes: NFTAttributes,
+      price: NFTPrice,
     };
 
     // Send a POST request to the api/pinJsonToIpfs.js to store the NFT metadata on IPFS
-    const { metadataURL } = await uploadJSONToIPFS(metadata).then((res) =>
-      res.json()
-    );
+    const metadataURL = await uploadJSONToIPFS(metadata);
 
     // Return the metadata URL for the NFT
     return metadataURL;
   };
+
   return (
     // Main page container
     <div className={styles.page_flexBox}>
       <div
         // Check if transaction hash exists to change styling of container
-        className={
-          !txHash ? styles.page_container : styles.page_container_submitted
-        }
+        className={styles.page_container}
       >
         <div className={styles.dropzone_container} {...getRootProps()}>
           <input {...getInputProps()}></input>
@@ -149,46 +137,37 @@ export default function NftCreator() {
           {/* Input field for NFT name */}
           <div className={styles.input_group}>
             <h3 className={styles.input_label}>NAME OF NFT</h3>
-            {!txHash ? (
-              <input
-                className={styles.input}
-                value={NFTName}
-                onChange={(e) => setNFTName(e.target.value)}
-                type={"text"}
-                placeholder="NFT Title"
-              />
-            ) : (
-              <p>{NFTName}</p>
-            )}
+
+            <input
+              className={styles.input}
+              value={NFTName}
+              onChange={(e) => setNFTName(e.target.value)}
+              type={"text"}
+              placeholder="NFT Title"
+            />
           </div>
           {/* Input field for NFT description */}
           <div className={styles.input_group}>
             <h3 className={styles.input_label}>DESCRIPTION</h3>
-            {!txHash ? (
-              <input
-                className={styles.input}
-                onChange={(e) => setNFTDescription(e.target.value)}
-                value={NFTDescription}
-                placeholder="NFT Description"
-              />
-            ) : (
-              <p>{NFTDescription}</p>
-            )}
+
+            <input
+              className={styles.input}
+              onChange={(e) => setNFTDescription(e.target.value)}
+              value={NFTDescription}
+              placeholder="NFT Description"
+            />
           </div>
           {/* Input field for NFT price */}
           <div className={styles.input_group}>
             <h3 className={styles.input_label}>PRICE</h3>
-            {!txHash ? (
-              <input
-                className={styles.input}
-                type="number"
-                onChange={(e) => setNFTPrice(e.target.value)}
-                value={NFTPrice}
-                placeholder="NFT Price"
-              />
-            ) : (
-              <p>{NFTPrice}</p>
-            )}
+            <input
+              className={styles.input}
+              type="number"
+              onChange={(e) => setNFTPrice(e.target.value)}
+              value={NFTPrice}
+              placeholder="NFT Price"
+              min={0}
+            />
           </div>
           {/* Dynamic attribute input fields */}
           <>
@@ -226,71 +205,57 @@ export default function NftCreator() {
                         ></input>
                       </div>
                       {/* Subtract attribute button */}
-                      {!txHash ? (
-                        <div className={styles.subtract_button_container}>
-                          <img
-                            onClick={() => subtractAttribute(index)}
-                            className={styles.minus_circle}
-                            src="https://static.alchemyapi.io/images/cw3d/Icon%20Dark/Small/minus-circle-contained-s.svg"
-                            alt=""
-                          />
-                        </div>
-                      ) : null}
+
+                      <div className={styles.subtract_button_container}>
+                        <img
+                          onClick={() => subtractAttribute(index)}
+                          className={styles.minus_circle}
+                          src="https://static.alchemyapi.io/images/cw3d/Icon%20Dark/Small/minus-circle-contained-s.svg"
+                          alt=""
+                        />
+                      </div>
                     </div>
                   </div>
                 );
               })}
           </>
 
-          {!txHash ? (
-            <div className={styles.button_container}>
-              <div className={styles.button} onClick={() => addAttribute()}>
-                Add attribute
-              </div>
+          <div className={styles.button_container}>
+            <div className={styles.button} onClick={() => addAttribute()}>
+              Add attribute
             </div>
-          ) : null}
+          </div>
+
           <div>
-            {!txHash ? (
-              <div>
-                <button
-                  className={
-                    isSubmitting
-                      ? styles.submit_button_submitting
-                      : styles.submit_button
-                  }
-                  disabled={isSubmitting}
-                  onClick={async () => await mintNFT()}
-                >
-                  {isSubmitting ? "Minting NFT" : "Mint NFT"}
-                </button>
-                {error ? (
-                  <p className={styles.error}>One or more fields is blank</p>
-                ) : null}
-              </div>
-            ) : (
-              <div>
-                <h3 className={styles.attribute_input_label}>ADDRESS</h3>
-                <a
-                  href={`https://mumbai.polygonscan.com/tx/${txHash}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <div className={styles.address_container}>
-                    <div>
-                      {txHash.slice(0, 6)}...{txHash.slice(6, 10)}
-                    </div>
-                    <img
-                      src={
-                        "https://static.alchemyapi.io/images/cw3d/Icon%20Large/etherscan-l.svg"
-                      }
-                      width="20px"
-                      height="20px"
-                      alt=""
-                    />
-                  </div>
-                </a>
-              </div>
-            )}
+            <div>
+              <button
+                className={
+                  isSubmitting
+                    ? styles.submit_button_submitting
+                    : styles.submit_button
+                }
+                disabled={isSubmitting}
+                onClick={async () => await mintNFT()}
+              >
+                {isSubmitting ? "Minting NFT" : "Mint NFT"}
+              </button>
+              {error ? (
+                <p className={styles.error}>One or more fields is blank</p>
+              ) : null}
+            </div>
+            <Snackbar
+              open={openSnackbar}
+              autoHideDuration={6000}
+              onClose={handleCloseSnackbar}
+            >
+              <Alert
+                onClose={handleCloseSnackbar}
+                severity="success"
+                sx={{ width: "100%" }}
+              >
+                Your NFT Successfully Minted !!
+              </Alert>
+            </Snackbar>
           </div>
         </div>
       </div>

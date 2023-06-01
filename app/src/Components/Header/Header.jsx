@@ -4,8 +4,7 @@ import { ethers } from "ethers";
 import NavButtons from "../../Components/Navigation Buttons/NavButtons";
 import Background from "../../Components/Background/Background";
 import { useSelector } from "react-redux";
-
-function Explore() {
+function Header() {
   useEffect(() => {
     if (typeof window.ethereum !== "undefined") {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -17,7 +16,7 @@ function Explore() {
   console.log(address);
 
   return (
-    <>
+    <div>
       <Background />
 
       <Box sx={{ minHeight: "100vh" }}>
@@ -34,8 +33,8 @@ function Explore() {
         </Typography>
         <NavButtons />
       </Box>
-    </>
+    </div>
   );
 }
 
-export default Explore;
+export default Header;

@@ -5,7 +5,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import { Box, Stack, Typography } from "@mui/material";
+import { Alert, Box, Snackbar, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 import {
   getcurrentiViewCoinPrice,
@@ -24,6 +24,8 @@ function DialogBox({ open, setOpen }) {
   const [coinValue, setCoinValue] = useState(0);
   const [ethBalance, setETHBalance] = useState(0);
   const [iViewCoinBalance, setIViewCoinBalance] = useState(0);
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [openErrorSnackbar, setOpenErrorSnackbar] = useState(false);
   const [loading, setLoading] = useState(true);
   const address = useSelector((state) => state?.walletReducer?.walletAddress);
 
@@ -55,10 +57,23 @@ function DialogBox({ open, setOpen }) {
     try {
       const result = await buyiViewCoin(walletAddress, amt);
       console.log(result);
+      setLoading(false);
+      setOpenSnackbar(true);
+      setOpen(false);
     } catch (error) {
       console.log(error.message);
       setLoading(false);
+      setOpenErrorSnackbar(true);
+      setOpen(false);
     }
+  };
+
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenSnackbar(false);
+    setOpenErrorSnackbar(false);
   };
 
   useEffect(() => {
@@ -75,7 +90,7 @@ function DialogBox({ open, setOpen }) {
   }, [amount, coinValue]);
 
   return (
-    <div>
+    <>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Buy iViewCoin</DialogTitle>
         <DialogContent>
@@ -86,9 +101,11 @@ function DialogBox({ open, setOpen }) {
               justifyContent: "space-between",
             }}
           >
-            <Typography>IVC Balance : {iViewCoinBalance} IVC</Typography>
             <Typography>
-              ETH Balance : {parseFloat(ethBalance).toFixed(1)} ETH
+              IVC Balance : <b>{iViewCoinBalance} IVC</b>
+            </Typography>
+            <Typography>
+              ETH Balance : <b>{parseFloat(ethBalance).toFixed(1)} ETH</b>
             </Typography>
           </span>
         </DialogContent>
@@ -166,9 +183,35 @@ function DialogBox({ open, setOpen }) {
           >
             <CircularProgress color="inherit" />
           </Backdrop>
+          <Snackbar
+            open={openSnackbar}
+            autoHideDuration={6000}
+            onClose={handleCloseSnackbar}
+          >
+            <Alert
+              onClose={handleCloseSnackbar}
+              severity="success"
+              sx={{ width: "100%" }}
+            >
+              Transaction Successfull !!
+            </Alert>
+          </Snackbar>
+          <Snackbar
+            open={openErrorSnackbar}
+            autoHideDuration={6000}
+            onClose={handleCloseSnackbar}
+          >
+            <Alert
+              onClose={handleCloseSnackbar}
+              severity="error"
+              sx={{ width: "100%" }}
+            >
+              Transaction Cancelled !!
+            </Alert>
+          </Snackbar>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 }
 

@@ -8,7 +8,6 @@ import { useDispatch } from "react-redux";
 import { walletAction } from "../../Components/Reducer/walletAction";
 import Background from "../../Components/Background/Background";
 import { motion } from "framer-motion";
-import { useEffect } from "react";
 
 function LandingPage() {
   const dispatch = useDispatch();

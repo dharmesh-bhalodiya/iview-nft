@@ -7,19 +7,22 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import "./NavButtons.css";
-import NFTCard from "../../Components/NFT/NFTGallery";
-import { useState } from "react";
-import axios from "axios";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import OwnedNFT from "../../Pages/MyNFT/OwnedNFT";
 import MintNFTAccess from "./Mint NFT/MintNFTAccess";
 import NftCreator from "../AddNFT/NFTCreator";
-import ClipLoader from "react-spinners/ClipLoader";
+import ExploreNFT from "../../Pages/ExploreNFT/ExploreNFT";
 
 export default function NavButtons() {
   const location = useLocation();
   const history = useNavigate();
-  const [loading, setloading] = useState(false);
+
+  const [value, setValue] = useState("1");
+  const { id } = useParams();
+
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [permission, setPermission] = useState(false);
 
   const theme = createTheme({
     palette: {
@@ -28,21 +31,6 @@ export default function NavButtons() {
       },
     },
   });
-  const override = {
-    position: "sticky",
-    left: "50%",
-    top: "70%",
-    right: "0",
-    bottom: "0",
-    margin: "auto",
-  };
-
-  const [value, setValue] = useState("1");
-  const [allNfts, setAllNfts] = useState([]);
-  const { id } = useParams();
-
-  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
-  const [open, setOpen] = useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -56,26 +44,12 @@ export default function NavButtons() {
     }
   };
 
-  const fetchAllNfts = async () => {
-    const result = await axios.get("http://localhost:3005/nfts");
-    setAllNfts(result.data);
-    // console.log(result.data);
-  };
-
-  useEffect(() => {
-    fetchAllNfts();
-  }, []);
-
   const openDialogBox = () => {
     setOpen(true);
     setIsButtonDisabled(true);
   };
 
   useEffect(() => {
-    setloading(true);
-    setTimeout(() => {
-      setloading(false);
-    }, 1000);
     id === "MyNFT" && setValue("2");
   }, [value, id]);
 
@@ -104,53 +78,46 @@ export default function NavButtons() {
                 onChange={handleChange}
                 aria-label="lab API tabs example"
                 textColor="customColor"
+                style={{ alignItems: "center" }}
               >
-                {location.pathname === "/Explore/MyNFT" ? (
-                  <Tab
-                    style={{ fontSize: "24px", color: "#d2d3d4" }}
+                {location.pathname === "/Explore/MyNFT" && !permission ? (
+                  <span
+                    style={{
+                      fontSize: "24px",
+                      color: "#d2d3d4",
+                      cursor: "pointer",
+                    }}
                     onClick={openDialogBox}
-                    label={<i className="fa fa-info-circle"></i>}
-                    value="3"
-                  ></Tab>
+                  >
+                    <i className="fa fa-info-circle" />
+                  </span>
+                ) : location.pathname === "/Explore/MyNFT" && permission ? (
+                  <Tab label="Mint NFT" value="3" />
                 ) : location.pathname === "/Explore/NFTCreator" ? (
-                  <Tab
-                    style={{ fontSize: "24px", color: "#d2d3d4" }}
-                    onClick={openDialogBox}
-                    label={<i className="fa fa-info-circle"></i>}
-                    value="3"
-                    disabled
-                  ></Tab>
-                ) : (
-                  ""
-                )}
+                  <Tab label="Mint NFT" value="3" />
+                ) : null}
                 {open && (
                   <MintNFTAccess
                     open={open}
                     setOpen={setOpen}
                     setIsButtonDisabled={setIsButtonDisabled}
+                    setPermission={setPermission}
                   />
                 )}
               </TabList>
+              {console.log("Permission", permission)}
             </Box>
             <TabPanel value="1">
-              <NFTCard nfts={allNfts} />
+              <ExploreNFT />
             </TabPanel>
             <TabPanel value="2">
               <OwnedNFT />
             </TabPanel>
             <TabPanel value="3">
-              {console.log(isButtonDisabled)}
-              {!isButtonDisabled && <NftCreator />}
+              {console.log("Is Button Disable", isButtonDisabled)}
+              <NftCreator />
             </TabPanel>
           </TabContext>
-          <ClipLoader
-            color={"#264653"}
-            loading={loading}
-            cssOverride={override}
-            size={50}
-            aria-label="Loading Spinner"
-            data-testid="loader"
-          />
         </Box>
       </ThemeProvider>
     </Container>
