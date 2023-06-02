@@ -1,0 +1,49 @@
+{
+  "ownednfts": [
+    {
+      "media": "https://i.seadn.io/gae/O-WkWV4IHdDVQkmjRCJGxxozLPB0lT_zEtMzWNnavvipaNOBmNEpaourmAS9PJ-AgQoYd3PJ_PWsozHe-qhcuvXVU83kftz1hA1SuQ?auto=format&dpr=1&w=1000",
+      "ownedBy": "X120A",
+      "hashNumber": "#117",
+      "symbol": "COOLIEN",
+      "contract": "0x2F218d79673DEBBf713b3a531CB2Aa2948c25c3a",
+      "description": "An NFT collection for royal Oliens holders.",
+      "verified": "verified",
+      "availableForSale": true,
+      "id": "1"
+    },
+    {
+      "id": 2,
+      "media": "https://nft-cdn.alchemy.com/eth-mainnet/68e88751dbebf9d5fbd20ebbe5781db5",
+      "ownedBy": "Cool Oliens",
+      "hashNumber": "#117",
+      "symbol": "COOLIEN",
+      "contract": "0x2F218d79673DEBBf713b3a531CB2Aa2948c25q2a",
+      "description": "An NFT collection for royal Oliens holders.",
+      "verified": "verified",
+      "current_price": "2.0 ETH",
+      "availableForSale": false
+    },
+    {
+      "media": "https://i.seadn.io/gae/177y1yv3-5Zx-CgF2K-QsjAwDkCPMBZm7ttVcn_zKdiUj70lInW-VyeY1nbDpYrUd5RoEW6LLtFmhBhb6GqLRvwftN1BnCRy5JsN?auto=format&dpr=1&w=10000",
+      "ownedBy": "PB014AA",
+      "hashNumber": "#117",
+      "symbol": "COOLIEN",
+      "contract": "0x2F218d79673DEBBf713b3a531CB2Aa2948c25e2a",
+      "description": "An NFT collection for royal Oliens holders.",
+      "verified": "verified",
+      "availableForSale": true,
+      "id": 3
+    },
+    {
+      "media": "https://nft-cdn.alchemy.com/eth-mainnet/e3669112e8c5cfb4cf7638702283dca0",
+      "ownedBy": "Cool Oliens",
+      "hashNumber": "#117",
+      "symbol": "COOLIEN",
+      "contract": "0x2F218d79673DEBBf713b3a531CB2Aa2948c25t2a",
+      "description": "An NFT collection for royal Oliens holders.",
+      "verified": "verified",
+      "availableForSale": false,
+      "id": 4
+    }
+  ]
+}

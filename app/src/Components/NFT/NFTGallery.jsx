@@ -1,25 +1,63 @@
 import React from "react";
 import styles from "../NFT/NftGallery.module.css";
 import { useMotionValue, useTransform, motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { nftInfo } from "../../Components/Reducer/walletAction";
+import { useState, useEffect } from "react";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export default function NFTGallery({ nfts }) {
+  const [scrollBar, setscrollBar] = useState(100);
+  const [loading, setloading] = useState(false);
+  const [NFTDisplay, setNFTDisplay] = useState(4);
+
+  const override = {
+    position: "sticky",
+    left: "50%",
+    top: "70%",
+    right: "0",
+    bottom: "0",
+    margin: "auto",
+  };
+
+  useEffect(() => {
+    function displayProduct() {
+      if (window.scrollY >= scrollBar) {
+        setloading(true);
+        setTimeout(() => {
+          setNFTDisplay(NFTDisplay + 4);
+          setloading(false);
+        }, 1000);
+        setscrollBar(
+          document.documentElement.getBoundingClientRect().height - 500
+        );
+      }
+    }
+
+    window.addEventListener("scroll", displayProduct);
+
+    return () => {
+      window.removeEventListener("scroll", displayProduct);
+    };
+  }, [NFTDisplay, scrollBar]);
+
   return (
     <div className={styles.nft_gallery_page}>
       <div className={styles.nft_gallery}>
         <div className={styles.nfts_display}>
-          {nfts?.length ? (
-            nfts.map((nft, index) => {
-              return <NftCard key={index} nft={nft} />;
-            })
-          ) : (
-            <div className={styles.loading_box}>
-              <p>No NFTs found for the selected address</p>
-            </div>
+          {nfts.map((nft, index) =>
+            index < NFTDisplay ? <NftCard key={index} nft={nft} /> : ""
           )}
         </div>
+        <ClipLoader
+          color={"#264653"}
+          loading={loading}
+          cssOverride={override}
+          size={50}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
       </div>
     </div>
   );
@@ -32,9 +70,12 @@ function NftCard({ nft }) {
   const dispatch = useDispatch();
   const history = useNavigate();
 
+  const location = useLocation();
+
   const handleNftInfo = () => {
     dispatch(nftInfo(nft));
-    history("/nftInfo");
+    history(`${location.pathname}/nftInfo/${nft.ownedBy}`);
+    // console.log("current loaction", location);
   };
 
   return (
@@ -59,7 +100,7 @@ function NftCard({ nft }) {
       </div>
       <div className={styles.info_container}>
         <div className={styles.title_container}>
-          <h3>{nft.title}</h3>
+          <h3>{nft.ownedBy}</h3>
         </div>
         <hr />
         <div className={styles.symbol_contract_container}>

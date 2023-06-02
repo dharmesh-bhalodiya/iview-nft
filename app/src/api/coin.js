@@ -9,7 +9,7 @@ const COIN_CONTRACT_ABI = require("../abi/iViewCoin.json");
 const apiKey = process.env.REACT_APP_ALCHEMY_API_KEY;
 const settings = {
   apiKey: apiKey,
-  network: Network.ETH_SEPOLIA
+  network: Network.ETH_SEPOLIA,
 };
 
 const alchemy = new Alchemy(settings);
@@ -22,38 +22,52 @@ export const getETHBalance = async (address) => {
   return balance;
 };
 
-
-export const getiViewCoinBalance = async (address) =>{
+export const getiViewCoinBalance = async (address) => {
   const provider = await alchemy.config.getProvider();
-  const coinContract = new ethers.Contract(COIN_CONTRACT_ADDRESS, COIN_CONTRACT_ABI.abi, provider);
+  const coinContract = new ethers.Contract(
+    COIN_CONTRACT_ADDRESS,
+    COIN_CONTRACT_ABI.abi,
+    provider
+  );
   let coinBalance = await coinContract.balanceOf(address);
   coinBalance = Utils.formatEther(coinBalance);
   console.log(`Balance of ${address}: ${coinBalance} IVC`);
   return coinBalance;
-}
+};
 
-export const getcurrentiViewCoinPrice = async () =>{
+export const getcurrentiViewCoinPrice = async () => {
   const provider = await alchemy.config.getProvider();
-  const coinContract = new ethers.Contract(COIN_CONTRACT_ADDRESS, COIN_CONTRACT_ABI.abi, provider);
+  const coinContract = new ethers.Contract(
+    COIN_CONTRACT_ADDRESS,
+    COIN_CONTRACT_ABI.abi,
+    provider
+  );
   let price = await coinContract.getPrice();
   price = Number(price);
   console.log(`Current price of IVC : ${price} ETH`);
   return price;
-}
+};
 
-
-export const buyiViewCoin = async (address, amount) =>{
-
-  const provider = new ethers.providers.Web3Provider(window.ethereum)
+export const buyiViewCoin = async (address, amount, res) => {
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
   const signer = provider.getSigner();
   console.log(signer);
-  const coinContract = new ethers.Contract(COIN_CONTRACT_ADDRESS, COIN_CONTRACT_ABI.abi, signer);
+  const coinContract = new ethers.Contract(
+    COIN_CONTRACT_ADDRESS,
+    COIN_CONTRACT_ABI.abi,
+    signer
+  );
 
-  await coinContract.buyCoin(Utils.parseEther(String(amount)),{
-      value: Utils.parseEther(String(await getcurrentiViewCoinPrice() * amount))
-  }).then(()=>{
+  await coinContract
+    .buyCoin(Utils.parseEther(String(amount)), {
+      value: Utils.parseEther(
+        String((await getcurrentiViewCoinPrice()) * amount)
+      ),
+    })
+    .then(() => {
       return true;
-  }).catch((e)=>{
+    })
+    .catch((e) => {
       throw new Error("transaction failed");
-  });
-}
+    });
+};

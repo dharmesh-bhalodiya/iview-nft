@@ -5,15 +5,13 @@ import Footer from "./Components/Footer/Footer";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "./configureStore";
-import Explore from "./Pages/Explore/Explore";
 import OwnedNFT from "./Pages/MyNFT/OwnedNFT";
 import NFTInfo from "./Pages/NFTInfo/nftInfo";
 import "./fonts/Archive.otf";
 import Navbar from "./Components/Navbar/Navbar";
 import NFTCreator from "./Components/AddNFT/NFTCreator";
 import TestAPI from "./Components/TestAPI/TestAPI";
-
-// const store = configureStore({ reducer: reducer });
+import Header from "./Components/Header/Header";
 
 function App() {
   return (
@@ -22,9 +20,12 @@ function App() {
         <PersistGate persistor={persistor}>
           <Navbar />
           <Routes>
-            <Route path={"/Explore"} element={<Explore />} />
+            <Route path={"/Explore/:id?"} element={<Header />} />
             <Route path={"/Ownednft"} element={<OwnedNFT />} />
-            <Route path={"/nftInfo"} element={<NFTInfo />} />
+            <Route
+              path={"/:initial/:page?/nftInfo/:id?"}
+              element={<NFTInfo />}
+            />
             <Route path={"/nftCreator"} element={<NFTCreator />} />
             <Route path={"/testapi"} element={<TestAPI />} />
             <Route path={"/"} element={<LandingPage />} />

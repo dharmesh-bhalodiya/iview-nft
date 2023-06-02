@@ -108,7 +108,6 @@ function LandingPage() {
 
         <Button
           variant="contained"
-          href="#contained-buttons"
           className="btn landingbtn"
           onClick={() => connectWallet()}
         >
